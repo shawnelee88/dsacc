@@ -11,7 +11,7 @@ List MakeEmpty(List L)
 {
 	if(L != NULL)
 		DeleteList(L);
-	
+
 	L = malloc(sizeof(Node));
 	if(L == NULL){
 		FatalError("Out of Memory!");
@@ -26,7 +26,7 @@ List MakeEmpty(List L)
 /*return true if L is empty*/
 int IsEmpty(List L)
 {
-    return L->next == NULL;
+	return L->next == NULL;
 }
 
 
@@ -35,68 +35,70 @@ int IsEmpty(List L)
 List L is unused in this implementation*/
 int IsLast(Position P, List L)
 {
-    return P->next == NULL;
+	return P->next == NULL;
 }
 
 
 /*return Position of e in L, NULL if not found*/
 Position Find(List L, ElemType e)
 {
-    Position P;
-    
-    P = L->next;
-    while((P != NULL) && (P->data != e)){
-        P= P->next;
-    }
-    return P;
+	Position P;
+
+	P = L->next;
+	while((P != NULL) && (P->data != e)){
+		P= P->next;
+	}
+	return P;
 }
 
+
+//similiar to FindPrevious
 Position Find2(List L, ElemType e)
 {
-    Position P;
-    
-    P = L;
-    while((P->next != NULL) && (P->next->data != e)){
-        P = P->next;
-    }
-    return P->next;
+	Position P;
+
+	P = L;
+	while((P->next != NULL) && (P->next->data != e)){
+		P = P->next;
+	}
+	return P->next;
 }
 
 
 Position Find3(List L, ElemType e)
 {
-    Position P;
-    int i;
-    
-    for(P=L->next; (P != NULL) && (P->data != e); P=P->next){}
-    return P->next;
+	Position P;
+	int i;
+
+	for(P=L->next; (P != NULL) && (P->data != e); P=P->next){}
+	return P;
 }
 
 
 /*delete first occurrence of e from list L*/
 void Delete(List L, ElemType e)
 {
-    Position P, tmp;
-    
-    P = FindPrevious(L, e);
-    if(!IsLast(P, L)){  //e is found, delete it
-        tmp = P->next;
+	Position P, tmp;
+
+	P = FindPrevious(L, e);
+	if(!IsLast(P, L)){  //e is found, delete it
+		tmp = P->next;
 		P->next = tmp->next;
-        free(tmp);       
-    }
+		free(tmp);       
+	}
 }
 
 
 /*if e is not found, return last node*/
 Position FindPrevious(List L, ElemType e)
 {
-    Position P;
-    
-    P = L;
-    while((P->next != NULL) && (P->next->data != e)){
-        P = P->next;
-    }
-    return P;
+	Position P;
+
+	P = L;
+	while((P->next != NULL) && (P->next->data != e)){
+		P = P->next;
+	}
+	return P;
 }
 
 
@@ -107,7 +109,7 @@ Position FindPrevious(List L, ElemType e)
 void Insert(List L, ElemType e, Position P)
 {
 	Position tmp;
-	
+
 	tmp = (Position)malloc(sizeof(Node));
 	if(tmp == NULL){
 		FatalError("Out of space");
@@ -122,7 +124,7 @@ void Insert(List L, ElemType e, Position P)
 void DeleteList(List L)
 {
 	Position P, tmp;
-	
+
 	P = L->next;
 	L->next = NULL;
 	while(P != NULL){
@@ -157,13 +159,13 @@ ElemType Retrieve(Position P)
 void PrintList(List L)
 {
 	Position P = Header(L);
-	
+
 	if(IsEmpty(L)){
 		printf("Empty list!\n");
 	}else{
 		do{
 			P = Advance(P);	
-			printf("%d", Retrieve(P));
+			printf("%d    ", Retrieve(P));
 		}while(!IsLast(P, L));
 		printf("\n");
 	}
